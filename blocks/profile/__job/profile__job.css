@@ -5,3 +5,12 @@
   color: white;
   margin: 0;
 }
+
+@media screen and (max-width: 767px) {
+  .profile__job {
+    font-size: 14px;
+    line-height: 17px;
+    align-self: center;
+    margin: 7px 0 33px;
+  }
+}

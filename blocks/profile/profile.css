@@ -3,3 +3,12 @@
   display: flex;
   justify-content: space-between;
 }
+
+@media screen and (max-width: 767px) {
+  .profile {
+    padding: 42px 5.9375vw 36px;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+  }
+}

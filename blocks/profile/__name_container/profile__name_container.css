@@ -3,3 +3,9 @@
   margin-bottom: 8px;
   justify-content: space-between;
 }
+
+@media screen and (max-width: 767px) {
+  .profile__name_container {
+    margin: 0;
+  }
+}
