@@ -19,3 +19,15 @@
     padding: 0 15.625vw;
   }
 }
+
+@media screen and (max-width: 1023px) {
+  .root {
+    padding: 0 10vw;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .root {
+    padding: 0 5.9375vw;
+  }
+}
