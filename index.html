@@ -4,9 +4,41 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="author" content="Александр Кузнецов" />
+  <meta name="keywords" content="Путешествие, место, Россия"/>
+  <link rel="stylesheet" href="./pages/style.css" />
   <title>Место</title>
 </head>
-<body>
+<body class="root">
+<header class="header">
+  <img
+    src="./images/logo-Mesto.svg"
+    alt="Логотип Место"
+    class="header__logo"
+  >
+</header>
+<main class="content">
+  <section class="profile">
+    <img
+      src="./images/avatar.jpg"
+      alt="аватар профиля"
+      class="profile__avatar"
+    >
+    <div class="profile__info">
+      <div class="profile__">
+        <h1 class="profile__name">
+          Жак-Ив Кусто
+        </h1>
+        <button class="profile__edit-button"></button>
+      </div>
+      <p class="job">Исследователь океана</p>
+    </div>
 
+  </section>
+</main>
+<footer class="footer">
+  <p class="footer__copyright" lang="en">&copy; 2021 Mesto Russia</p>
+</footer>
+<script src="./scripts/index.js"></script>
 </body>
 </html>
