@@ -1,0 +1,5 @@
+.profile {
+  padding: 40px 0 50px;
+  display: flex;
+  justify-content: space-between;
+}
