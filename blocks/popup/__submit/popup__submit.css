@@ -10,6 +10,12 @@
   border: none;
   border-radius: 2px;
   padding: 0;
+  transition: opacity .3s linear;
+}
+
+.popup__submit:hover {
+  opacity: .6;
+  cursor: pointer;
 }
 
 @media screen and (max-width: 767px) {

@@ -5,6 +5,12 @@
   border: 2px solid #fff;
   border-radius: 2px;
   align-self: center;
+  transition: opacity .3s linear;
+}
+
+.profile__add-button:hover {
+  opacity: .6;
+  cursor: pointer;
 }
 
 @media screen and (max-width: 1023px) {
