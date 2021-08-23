@@ -1,99 +1,171 @@
 <!DOCTYPE html>
 <html lang="ru">
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="author" content="Александр Кузнецов" />
-  <meta name="keywords" content="Путешествие, место, Россия"/>
-  <link rel="stylesheet" href="./pages/style.css" />
-  <title>Место</title>
-</head>
-<body class="root">
-<header class="header">
-  <img
-    src="./images/logo-Mesto.svg"
-    alt="Логотип Место"
-    class="header__logo"
-  >
-</header>
-<main class="content">
-  <section class="profile">
-    <div class="profile__container">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="author" content="Александр Кузнецов" />
+    <meta name="keywords" content="Путешествие, место, Россия" />
+    <link rel="stylesheet" href="./pages/index.css" />
+    <title>Место</title>
+  </head>
+  <body class="root">
+    <header class="header">
       <img
-        src="./images/avatar.jpg"
-        alt="аватар профиля"
-        class="profile__avatar"
-      >
-      <div class="profile__info">
-        <div class="profile__name_container">
-          <h1 class="profile__name">Жак-Ив Кусто</h1>
-          <button type="button" class="profile__edit-button"></button>
+        src="./images/logo-mesto.svg"
+        alt="Логотип Место"
+        class="header__logo"
+      />
+    </header>
+    <main class="content">
+      <section class="profile">
+        <div class="profile__container">
+          <img
+            src="./images/avatar.jpg"
+            alt="аватар профиля"
+            class="profile__avatar"
+          />
+          <div class="profile__info">
+            <div class="profile__name-container">
+              <h1 class="profile__name">Жак-Ив Кусто</h1>
+              <button
+                aria-label="Редактировать профиль"
+                type="button"
+                class="profile__edit-button"
+              ></button>
+            </div>
+            <p class="profile__job">Исследователь океана</p>
+          </div>
         </div>
-        <p class="profile__job">Исследователь океана</p>
+        <button
+          aria-label="Добавить карточку"
+          type="button"
+          class="profile__add-button"
+        ></button>
+      </section>
+      <section aria-label="Галерея фотографий" class="elements">
+        <article class="element">
+          <img
+            src="./images/karachaevsk.jpg"
+            alt="фотография Карачаево-Черкесии"
+            class="element__photo"
+          />
+          <div class="element__title-container">
+            <h2 class="element__title">Карачаевск</h2>
+            <button
+              aria-label="Отметить нравится"
+              type="button"
+              class="element__like element__like_active"
+            ></button>
+          </div>
+        </article>
+        <article class="element">
+          <img
+            src="./images/elbrus.jpg"
+            alt="фотография горы Эльбрус"
+            class="element__photo"
+          />
+          <div class="element__title-container">
+            <h2 class="element__title">Гора Эльбрус</h2>
+            <button
+              aria-label="Отметить нравится"
+              type="button"
+              class="element__like"
+            ></button>
+          </div>
+        </article>
+        <article class="element">
+          <img
+            src="./images/dombai.png"
+            alt="фотография гор Домбая"
+            class="element__photo"
+          />
+          <div class="element__title-container">
+            <h2 class="element__title">Домбай</h2>
+            <button
+              aria-label="Отметить нравится"
+              type="button"
+              class="element__like"
+            ></button>
+          </div>
+        </article>
+        <article class="element">
+          <img
+            src="./images/elbrus.jpg"
+            alt="фотография горы Эльбрус"
+            class="element__photo"
+          />
+          <div class="element__title-container">
+            <h2 class="element__title">Гора Эльбрус</h2>
+            <button
+              aria-label="Отметить нравится"
+              type="button"
+              class="element__like"
+            ></button>
+          </div>
+        </article>
+        <article class="element">
+          <img
+            src="./images/dombai.png"
+            alt="фотография гор Домбая"
+            class="element__photo"
+          />
+          <div class="element__title-container">
+            <h2 class="element__title">Домбай</h2>
+            <button
+              aria-label="Отметить нравится"
+              type="button"
+              class="element__like"
+            ></button>
+          </div>
+        </article>
+        <article class="element">
+          <img
+            src="./images/karachaevsk.jpg"
+            alt="фотография Карачаево-Черкесии"
+            class="element__photo"
+          />
+          <div class="element__title-container">
+            <h2 class="element__title">Карачаево-Черкесия</h2>
+            <button
+              aria-label="Отметить нравится"
+              type="button"
+              class="element__like"
+            ></button>
+          </div>
+        </article>
+      </section>
+      <div class="popup">
+        <div class="popup__container">
+          <button
+            aria-label="Закрыть редактирование профиля"
+            type="button"
+            class="popup__close-button"
+          ></button>
+          <h2 class="popup__title">Редактировать профиль</h2>
+          <form name="profile-edit" class="popup__form">
+            <input
+              type="text"
+              class="popup__input popup__input_is_name"
+              required
+              placeholder="Введите Ваше имя"
+              value=""
+            />
+            <input
+              type="text"
+              class="popup__input popup__input_is_job"
+              required
+              placeholder="Введите Ваш род деятельности"
+              value=""
+            />
+            <input type="submit" class="popup__submit" value="Сохранить" />
+          </form>
+        </div>
       </div>
-    </div>
-    <button type="button" class="profile__add-button"></button>
-  </section>
-  <section class="elements">
-    <div class="element">
-      <img src="./images/karachaevsk.jpg" alt="фотография Карачаево-Черкесии" class="element__photo">
-      <div class="element__title-container">
-        <h2 class="element__title">Карачаевск</h2>
-        <button class="element__like element__like_active"></button>
-      </div>
-    </div>
-    <div class="element">
-      <img src="./images/elbrus.jpg" alt="фотография горы Эльбрус" class="element__photo">
-      <div class="element__title-container">
-        <h2 class="element__title">Гора Эльбрус</h2>
-        <button class="element__like"></button>
-      </div>
-    </div>
-    <div class="element">
-      <img src="./images/dombai.png" alt="фотография гор Домбая" class="element__photo">
-      <div class="element__title-container">
-        <h2 class="element__title">Домбай</h2>
-        <button class="element__like"></button>
-      </div>
-    </div>
-    <div class="element">
-      <img src="./images/elbrus.jpg" alt="фотография горы Эльбрус" class="element__photo">
-      <div class="element__title-container">
-        <h2 class="element__title">Гора Эльбрус</h2>
-        <button class="element__like"></button>
-      </div>
-    </div>
-    <div class="element">
-      <img src="./images/dombai.png" alt="фотография гор Домбая" class="element__photo">
-      <div class="element__title-container">
-        <h2 class="element__title">Домбай</h2>
-        <button class="element__like"></button>
-      </div>
-    </div>
-    <div class="element">
-      <img src="./images/karachaevsk.jpg" alt="фотография Карачаево-Черкесии" class="element__photo">
-      <div class="element__title-container">
-        <h2 class="element__title">Карачаево-Черкесия</h2>
-        <button class="element__like"></button>
-      </div>
-    </div>
-  </section>
-  <div class="popup">
-    <div class="popup__container">
-      <button class="popup__close-button"></button>
-      <h2 class="popup__title">Редактировать профиль</h2>
-      <form class="popup__form">
-        <input type="text" class="popup__input-name" value="">
-        <input type="text" class="popup__input-job" value="">
-        <input type="submit" class="popup__submit" value="Сохранить">
-      </form>
-    </div>
-  </div>
-</main>
-<footer class="footer">
-  <p class="footer__copyright" lang="en">&copy; 2021 Mesto Russia</p>
-</footer>
-<script src="./scripts/index.js"></script>
-</body>
+    </main>
+    <footer class="footer">
+      <p class="footer__copyright" lang="en">&copy; 2021 Mesto Russia</p>
+    </footer>
+    <script src="./scripts/index.js"></script>
+  </body>
 </html>

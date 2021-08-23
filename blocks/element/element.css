@@ -1,5 +1,5 @@
 .element {
-  height: 361px;
+  min-height: 361px;
   border-radius: 10px;
   display: flex;
   flex-direction: column;
