@@ -1,4 +1,5 @@
 .profile__job {
+  width: 100%;
   font-size: 18px;
   line-height: 22px;
   font-weight: normal;
@@ -13,7 +14,7 @@
   .profile__job {
     font-size: 14px;
     line-height: 17px;
-    align-self: center;
+    text-align: center;
     margin: 7px 0 33px;
   }
 }
