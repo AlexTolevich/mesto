@@ -32,8 +32,6 @@
 @import url('../blocks/popup/__title/popup__title.css');
 @import url('../blocks/popup/__form/popup__form.css');
 @import url('../blocks/popup/__input/popup__input.css');
-@import url('../blocks/popup/__input/_is/popup__input_is_name.css');
-@import url('../blocks/popup/__input/_is/popup__input_is_job.css');
 @import url('../blocks/popup/__submit/popup__submit.css');
 @import url('../blocks/footer/footer.css');
 @import url('../blocks/footer/__copyright/footer__copyright.css');

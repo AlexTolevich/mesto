@@ -47,84 +47,87 @@
       </section>
 
       <section aria-label="Галерея фотографий" class="elements"></section>
-
-      <div class="popup popup_type_edit">
-        <div class="popup__container">
-          <button
-            aria-label="Закрыть редактирование профиля"
-            type="button"
-            class="popup__close-button popup__close-button_type_edit"
-          ></button>
-          <h2 class="popup__title">Редактировать профиль</h2>
-          <form name="profile-edit" class="popup__form">
-            <input
-              type="text"
-              name="popup-name"
-              class="popup__input popup__input_is_name"
-              required
-              placeholder="Введите Ваше имя"
-              value=""
-            />
-            <input
-              type="text"
-              name="popup-job"
-              class="popup__input popup__input_is_job"
-              required
-              placeholder="Введите Ваш род деятельности"
-              value=""
-            />
-            <input type="submit" class="popup__submit" value="Сохранить" />
-          </form>
-        </div>
-      </div>
-
-      <div class="popup popup_type_add">
-        <div class="popup__container">
-          <button
-            aria-label="Закрыть окно добавления карточки"
-            type="button"
-            class="popup__close-button popup__close-button_type_add"
-          ></button>
-          <h2 class="popup__title">Новое место</h2>
-          <form name="new-place" class="popup__form popup__form_type_add">
-            <input
-              type="text"
-              name="place-name"
-              class="popup__input popup__input_is_place-name"
-              required
-              placeholder="Название"
-              value=""
-            />
-            <input
-              type="text"
-              name="place-img-link"
-              class="popup__input popup__input_is_img-link"
-              required
-              placeholder="Ссылка на картинку"
-              value=""
-            />
-            <input type="submit" class="popup__submit" value="Создать" />
-          </form>
-        </div>
-      </div>
-
-      <div class="popup popup_type_full-screen">
-        <div class="popup__image-container">
-          <img src="#" alt="" class="popup__image" />
-          <p class="popup__image-caption"></p>
-          <button
-            aria-label="Закрыть окно просмотра фотографий"
-            type="button"
-            class="popup__close-button popup__close-button_type_full-screen"
-          ></button>
-        </div>
-      </div>
     </main>
 
     <footer class="footer">
       <p class="footer__copyright" lang="en">&copy; 2021 Mesto Russia</p>
     </footer>
 
+    <div class="popup popup_type_edit">
+      <div class="popup__container">
+        <button
+          aria-label="Закрыть редактирование профиля"
+          type="button"
+          class="popup__close-button popup__close-button_type_edit"
+        ></button>
+        <h2 class="popup__title">Редактировать профиль</h2>
+        <form name="profile-edit" class="popup__form">
+          <input
+            type="text"
+            name="popup-name"
+            class="popup__input popup__input_is_name"
+            required
+            placeholder="Введите Ваше имя"
+            value=""
+          />
+          <input
+            type="text"
+            name="popup-job"
+            class="popup__input popup__input_is_job"
+            required
+            placeholder="Введите Ваш род деятельности"
+            value=""
+          />
+          <button type="submit" class="popup__submit" value="Сохранить">
+            Сохранить
+          </button>
+        </form>
+      </div>
+    </div>
+
+    <div class="popup popup_type_add">
+      <div class="popup__container">
+        <button
+          aria-label="Закрыть окно добавления карточки"
+          type="button"
+          class="popup__close-button popup__close-button_type_add"
+        ></button>
+        <h2 class="popup__title">Новое место</h2>
+        <form name="new-place" class="popup__form popup__form_type_add">
+          <input
+            type="text"
+            name="place-name"
+            class="popup__input popup__input_is_place-name"
+            required
+            placeholder="Название"
+            value=""
+          />
+          <input
+            type="text"
+            name="place-img-link"
+            class="popup__input popup__input_is_img-link"
+            required
+            placeholder="Ссылка на картинку"
+            value=""
+          />
+          <button type="submit" class="popup__submit" value="Создать">
+            Создать
+          </button>
+        </form>
+      </div>
+    </div>
+
+    <div class="popup popup_type_full-screen">
+      <div class="popup__image-container">
+        <img src="#" alt="" class="popup__image" />
+        <p class="popup__image-caption"></p>
+        <button
+          aria-label="Закрыть окно просмотра фотографий"
+          type="button"
+          class="popup__close-button popup__close-button_type_full-screen"
+        ></button>
+      </div>
+    </div>
     <template id="element-template">
       <article class="element">
         <img src="#" alt="" class="element__photo" />
@@ -144,6 +147,7 @@
       </article>
     </template>
 
+    <script src="./scripts/initial-cards.js"></script>
     <script src="./scripts/index.js"></script>
   </body>
 </html>
