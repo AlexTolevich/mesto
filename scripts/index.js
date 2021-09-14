@@ -19,12 +19,30 @@ const elementTemplate = document.querySelector("#element-template").content; //t
 //функция открытия попапа
 const openPopup = (element) => {
   element.classList.add("popup_opened"); //добавляем класс блоку popup со значением display:flex, что делает его видимым на странице
+  document.addEventListener('keydown', closePopupEscClick); //добавляем слушатель нажатия кнопок клавиатуры при открытии попап
+  element.addEventListener('mousedown', closePopupOverlayClick); //добавляем слушатель нажатия кнопки мыши при открытии попап
 };
 
 //функция закрытия попапа
 const closePopup = (element) => {
   element.classList.remove("popup_opened"); //удаляет класс блоку popup со значением display:flex, что делает его невидимым на странице
+  document.removeEventListener('keydown', closePopupEscClick); //удаляем слушатель нажатия кнопок клавиатуры при закрытии попап
+  element.removeEventListener('mousedown', closePopupOverlayClick); //удаляем слушатель нажатия кнопки мыши при закрытии попап
 };
+
+//функция закрытия попап по esc
+const closePopupEscClick = (evt) => {
+  if (evt.key === `Escape`) { //определяем нажатие escape
+    closePopup (document.querySelector('.popup_opened')); //находим элемент открытого попап и передаем его как аргумент функции закрытия попап
+  }
+}
+
+//функция закрытия попап кликом на "оверлей"
+const closePopupOverlayClick = (evt) => {
+  if (evt.target.classList.contains('popup_opened')) { //определяем нажатие мыши на оверлай открытого попап
+    closePopup(document.querySelector('.popup_opened')); //находим элемент открытого попап и передаем его как аргумент функции закрытия попап
+  }
+}
 
 //функция загрузки значений в поля попапа из профиля со страницы
 const getDefaultInfoProfile = () => {
@@ -53,7 +71,7 @@ const handlePreviewImage = (event) => {
 };
 
 //функция добавления карточек
-const createElement = (card) => {
+const createCard = (card) => {
   const elementCard = elementTemplate.querySelector(".element").cloneNode(true);
   elementCard.querySelector(".element__photo").src = card.link;
   elementCard.querySelector(".element__photo").alt = card.name;
@@ -72,7 +90,7 @@ const createElement = (card) => {
 
 //функция отрисовки добавленной карточки
 const renderCard = (card) => {
-  cardContainer.prepend(createElement(card));
+  cardContainer.prepend(createCard(card));
 };
 
 //функция снятия/установки like
