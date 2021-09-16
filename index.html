@@ -61,24 +61,32 @@
           class="popup__close-button popup__close-button_type_edit"
         ></button>
         <h2 class="popup__title">Редактировать профиль</h2>
-        <form name="profile-edit" class="popup__form">
+        <form name="profile-edit" class="popup__form" novalidate>
           <input
             type="text"
             name="popup-name"
+            id="popup-name"
             class="popup__input popup__input_is_name"
             required
             placeholder="Введите Ваше имя"
             value=""
+            minlength="2"
+            maxlength="40"
           />
+          <span id="popup-name-error" class="popup__error"></span>
           <input
             type="text"
             name="popup-job"
+            id="popup-job"
             class="popup__input popup__input_is_job"
             required
             placeholder="Введите Ваш род деятельности"
             value=""
+            minlength="2"
+            maxlength="200"
           />
-          <button type="submit" class="popup__submit" value="Сохранить">
+          <span id="popup-job-error" class="popup__error"></span>
+          <button type="submit" class="popup__button" value="Сохранить">
             Сохранить
           </button>
         </form>
@@ -93,24 +101,30 @@
           class="popup__close-button popup__close-button_type_add"
         ></button>
         <h2 class="popup__title">Новое место</h2>
-        <form name="new-place" class="popup__form popup__form_type_add">
+        <form name="new-place" class="popup__form popup__form_type_add" novalidate>
           <input
             type="text"
             name="place-name"
+            id="place-name"
             class="popup__input popup__input_is_place-name"
             required
             placeholder="Название"
             value=""
+            minlength="2"
+            maxlength="30"
           />
+          <span id="place-name-error" class="popup__error"></span>
           <input
-            type="text"
+            type="url"
             name="place-img-link"
+            id="place-img-link"
             class="popup__input popup__input_is_img-link"
             required
             placeholder="Ссылка на картинку"
             value=""
           />
-          <button type="submit" class="popup__submit" value="Создать">
+          <span id="place-img-link-error" class="popup__error"></span>
+          <button type="submit" class="popup__button" value="Создать">
             Создать
           </button>
         </form>
@@ -128,6 +142,7 @@
         ></button>
       </div>
     </div>
+
     <template id="element-template">
       <article class="element">
         <img src="#" alt="" class="element__photo" />
@@ -148,6 +163,7 @@
     </template>
 
     <script src="./scripts/initial-cards.js"></script>
+    <script src="./scripts/validate.js"></script>
     <script src="./scripts/index.js"></script>
   </body>
 </html>

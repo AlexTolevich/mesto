@@ -1,4 +1,4 @@
-.popup__submit {
+.popup__button {
   width: 358px;
   height: 50px;
   background-color: #000;
@@ -13,13 +13,13 @@
   transition: opacity .3s linear;
 }
 
-.popup__submit:hover {
+.popup__button:hover {
   opacity: .8;
   cursor: pointer;
 }
 
 @media screen and (max-width: 767px) {
-  .popup__submit {
+  .popup__button {
     width: 238px;
     height: 46px;
     font-size: 14px;

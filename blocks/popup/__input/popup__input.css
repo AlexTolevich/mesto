@@ -6,11 +6,7 @@
   font-size: 14px;
   line-height: 17px;
   font-weight: normal;
-  margin-bottom: 48px;
-}
-
-.popup__input:first-of-type {
-  margin-bottom: 22px;
+  margin-bottom: 5px;
 }
 
 @media screen and (max-width: 767px) {
