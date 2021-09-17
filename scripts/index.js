@@ -104,6 +104,9 @@ const handleCardFormSubmit = (evt) => {
   });
   formAddCard.reset();
   closePopup(popupAddCard);
+  const buttonAddCard = popupAddCard.querySelector('.popup__button');
+  buttonAddCard.classList.add('popup__button_disabled'); //блокируем кнопку после сабмита
+  buttonAddCard.setAttribute("disabled", ""); //блокируем кнопку после сабмита
 };
 
 //отрисовка стартовых карточек из массива

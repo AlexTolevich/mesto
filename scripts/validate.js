@@ -51,7 +51,7 @@ const hasInvalidInput = (inputList) => {
 //функция проверки наличия данных в инпуте, пока не работает, т.к. проверка осуществляется только при начале события input
 // const hasNotInputValue = (inputList) => {
 //   return inputList.every(inputElement => {
-//     return inputElement.value.lenght === 0;
+//     return inputElement.value.lenght === 0 ;
 //   });
 // }
 
