@@ -1,49 +1,48 @@
-import Card from "./Card.js";
-import {initialCards} from "./initial-cards.js";
+import Card from './Card.js';
+import {initialCards} from './initial-cards.js';
 
-const popupEditProfile = document.querySelector(".popup_type_edit"); //попап редактирования профиля
-const editButton = document.querySelector(".profile__edit-button"); //кнопка вызова попапа редактироования профиля
-const closePopupButtonTypeEdit = document.querySelector(".popup__close-button_type_edit"); //кнопка закрытия попапа редактирования профиля
-const nameInput = document.querySelector(".popup__input_is_name");
-const jobInput = document.querySelector(".popup__input_is_job");
-const profileName = document.querySelector(".profile__name");
-const profileJob = document.querySelector(".profile__job");
-const popupAddCard = document.querySelector(".popup_type_add"); //попап добавления карточек
-const addButton = document.querySelector(".profile__add-button"); //кнопка вызова попапа редактироования профиля
-const closePopupButtonAddCard = document.querySelector(".popup__close-button_type_add"); //кнопка закрытия попапа профиля
-const placeNameInput = document.querySelector(".popup__input_is_place-name");
-const imgLinkInput = document.querySelector(".popup__input_is_img-link");
-const formAddCard = document.querySelector(".popup__form_type_add"); //форма добавления карточки
-const popupImage = document.querySelector(".popup_type_full-screen");
-const closePopupButtonImage = document.querySelector(".popup__close-button_type_full-screen");
-const cardContainer = document.querySelector(".elements"); //секция для добавления карточек
-const elementTemplate = document.querySelector("#element-template").content; //template карточки
+const popupEditProfile = document.querySelector('.popup_type_edit'); //попап редактирования профиля
+const editButton = document.querySelector('.profile__edit-button'); //кнопка вызова попапа редактироования профиля
+const closePopupButtonTypeEdit = document.querySelector('.popup__close-button_type_edit'); //кнопка закрытия попапа редактирования профиля
+const nameInput = document.querySelector('.popup__input_is_name');
+const jobInput = document.querySelector('.popup__input_is_job');
+const profileName = document.querySelector('.profile__name');
+const profileJob = document.querySelector('.profile__job');
+const popupAddCard = document.querySelector('.popup_type_add'); //попап добавления карточек
+const addButton = document.querySelector('.profile__add-button'); //кнопка вызова попапа редактироования профиля
+const closePopupButtonAddCard = document.querySelector('.popup__close-button_type_add'); //кнопка закрытия попапа профиля
+const placeNameInput = document.querySelector('.popup__input_is_place-name');
+const imgLinkInput = document.querySelector('.popup__input_is_img-link');
+const formAddCard = document.querySelector('.popup__form_type_add'); //форма добавления карточки
+const popupImage = document.querySelector('.popup_type_full-screen');
+const closePopupButtonImage = document.querySelector('.popup__close-button_type_full-screen');
+const cardContainer = document.querySelector('.elements'); //секция для добавления карточек
 
 // функция открытия попапа
 const openPopup = (element) => {
-  element.classList.add("popup_opened"); //добавляем класс блоку popup со значением display:flex, что делает его видимым на странице
-  document.addEventListener("keydown", closePopupEscClick); //добавляем слушатель нажатия кнопок клавиатуры при открытии попап
-  element.addEventListener("mousedown", closePopupOverlayClick); //добавляем слушатель нажатия кнопки мыши при открытии попап
+  element.classList.add('popup_opened'); //добавляем класс блоку popup со значением display:flex, что делает его видимым на странице
+  document.addEventListener('keydown', closePopupEscClick); //добавляем слушатель нажатия кнопок клавиатуры при открытии попап
+  element.addEventListener('mousedown', closePopupOverlayClick); //добавляем слушатель нажатия кнопки мыши при открытии попап
 };
 
 // функция закрытия попапа
 const closePopup = (element) => {
-  element.classList.remove("popup_opened"); //удаляет класс блоку popup со значением display:flex, что делает его невидимым на странице
-  document.removeEventListener("keydown", closePopupEscClick); //удаляем слушатель нажатия кнопок клавиатуры при закрытии попап
-  element.removeEventListener("mousedown", closePopupOverlayClick); //удаляем слушатель нажатия кнопки мыши при закрытии попап
+  element.classList.remove('popup_opened'); //удаляет класс блоку popup со значением display:flex, что делает его невидимым на странице
+  document.removeEventListener('keydown', closePopupEscClick); //удаляем слушатель нажатия кнопок клавиатуры при закрытии попап
+  element.removeEventListener('mousedown', closePopupOverlayClick); //удаляем слушатель нажатия кнопки мыши при закрытии попап
 };
 
 // функция закрытия попап по esc
 const closePopupEscClick = (evt) => {
-  if (evt.key === "Escape") { //определяем нажатие escape
-    closePopup(document.querySelector(".popup_opened")); //находим элемент открытого попап и передаем его как аргумент функции закрытия попап
+  if (evt.key === 'Escape') { //определяем нажатие escape
+    closePopup(document.querySelector('.popup_opened')); //находим элемент открытого попап и передаем его как аргумент функции закрытия попап
   }
 };
 
-//функция закрытия попап кликом на "оверлей"
+//функция закрытия попап кликом на 'оверлей'
 const closePopupOverlayClick = (evt) => {
-  if (evt.target.classList.contains("popup_opened")) { //определяем нажатие мыши на оверлай открытого попап
-    closePopup(document.querySelector(".popup_opened")); //находим элемент открытого попап и передаем его как аргумент функции закрытия попап
+  if (evt.target.classList.contains('popup_opened')) { //определяем нажатие мыши на оверлай открытого попап
+    closePopup(document.querySelector('.popup_opened')); //находим элемент открытого попап и передаем его как аргумент функции закрытия попап
   }
 };
 
@@ -62,101 +61,71 @@ const handleProfileFormSubmit = (evt) => {
 };
 
 //функция открытия просмотра фото на полный экран
-// const handlePreviewImage = (event) => {
-//   const photoElement = document.querySelector(".popup__image");
-//   const captionImageElement = document.querySelector(".popup__image-caption");
-//   photoElement.src = event.target.closest(".element__photo").src;
-//   photoElement.alt = event.target.closest(".element__photo").alt;
-//   captionImageElement.textContent = event.target.closest(".element").querySelector(".element__title").textContent;
-//   openPopup(popupImage);
-// };
-
-//функция добавления карточек
-// const createCard = (card) => {
-//   const elementCard = elementTemplate.querySelector(".element").cloneNode(true);
-//   elementCard.querySelector(".element__photo").src = card.link;
-//   elementCard.querySelector(".element__photo").alt = card.name;
-//   elementCard.querySelector(".element__title").textContent = card.name;
-//   elementCard.querySelector(".element__like").addEventListener("click", handleLikeElement); //слушатель кнопки element__like
-//   elementCard.querySelector(".element__remove").addEventListener("click", handleDeleteElement); //слушатель кнопки element__remove
-//   elementCard.querySelector(".element__photo").addEventListener("click", handlePreviewImage);
-//   return elementCard;
-// };
-
-//функция отрисовки добавленной карточки
-// const renderCard = (card) => {
-//   cardContainer.prepend(createCard(card));
-// };
-
-const renderCard = (arg) => {
-    const card = new Card(arg, elementTemplate);
-    const cardElement = card.createCard();
-    cardContainer.prepend(cardElement);
+const handlePreviewImage = (name, link) => {
+  const photoElement = document.querySelector('.popup__image');
+  const captionImageElement = document.querySelector('.popup__image-caption');
+  photoElement.src = link;
+  photoElement.alt = name;
+  captionImageElement.textContent = name;
+  openPopup(popupImage);
 };
 
+const renderCard = (data, container) => {
+  const card = new Card(data, '#element-template', handlePreviewImage);
+  const cardElement = card.createCard();
+  container.prepend(cardElement);
+};
 
 //отрисовка стартовых карточек из массива
 initialCards.forEach((item) => {
-  renderCard(item);
+  renderCard(item, cardContainer);
 });
-
-//функция снятия/установки like
-// const handleLikeElement = (event) => {
-//   event.target.classList.toggle("element__like_active");
-// };
-
-//функция удаления карточки
-// const handleDeleteElement = (event) => {
-//   event.target.closest(".element").remove();
-// };
 
 //функция обработки сабмита добавления карточки
 const handleCardFormSubmit = (evt) => {
   evt.preventDefault();
-  renderCard ({
+  renderCard({
     name: placeNameInput.value,
     link: imgLinkInput.value,
-  });
+  }, cardContainer);
   formAddCard.reset();
   closePopup(popupAddCard);
   const buttonAddCard = popupAddCard.querySelector('.popup__button');
   buttonAddCard.classList.add('popup__button_disabled'); //блокируем кнопку после сабмита
-  buttonAddCard.setAttribute("disabled", ""); //блокируем кнопку после сабмита
+  buttonAddCard.setAttribute('disabled', ''); //блокируем кнопку после сабмита
 };
 
-
-
 //вызов функции закрытия popup просмотра фото
-// closePopupButtonImage.addEventListener("click", () => {
-//   closePopup(popupImage);
-// });
+closePopupButtonImage.addEventListener('click', () => {
+  closePopup(popupImage);
+});
 
 //вызов функции открытия popup редактировния профиля
-editButton.addEventListener("click", () => {
+editButton.addEventListener('click', () => {
   openPopup(popupEditProfile);
   getDefaultInfoProfile();
 });
 
 //вызов функции закрытия popup редактировния профиля
-closePopupButtonTypeEdit.addEventListener("click", () => {
+closePopupButtonTypeEdit.addEventListener('click', () => {
   closePopup(popupEditProfile);
 });
 
 //вызов функции обработки сабмита редактирования профиля
-popupEditProfile.addEventListener("submit", handleProfileFormSubmit);
+popupEditProfile.addEventListener('submit', handleProfileFormSubmit);
 
 // //вызов функции открытия popup добавления карточки
-addButton.addEventListener("click", () => {
+addButton.addEventListener('click', () => {
   openPopup(popupAddCard);
 });
 
 //вызов функции закрытия popup добавления карточки
-closePopupButtonAddCard.addEventListener("click", () => {
+closePopupButtonAddCard.addEventListener('click', () => {
   closePopup(popupAddCard);
 });
 
 //вызов функции обработки сабмита добавления карточки
-popupAddCard.addEventListener("submit", handleCardFormSubmit);
+popupAddCard.addEventListener('submit', handleCardFormSubmit);
 
 //конфигурация валидации
 const validationConfig = {

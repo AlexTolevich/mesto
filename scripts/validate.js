@@ -19,7 +19,7 @@ const hideInputError = (
 ) => {
   inputElement.classList.remove(inputErrorClass);
   errorElement.classList.remove(errorClass);
-  errorElement.textContent = "";
+  errorElement.textContent = '';
 };
 
 //функция проверки валидности поля
@@ -29,7 +29,7 @@ const checkInputValidity = (
   inputErrorClass,
   errorClass
 ) => {
-  const errorElement = formElement.querySelector(`#${inputElement.id}-error`); //ищем и добавляем в переменную спан с ошибкой по id инпута + окончание id span "-error"
+  const errorElement = formElement.querySelector(`#${inputElement.id}-error`); //ищем и добавляем в переменную спан с ошибкой по id инпута + окончание id span '-error'
 
   if (!inputElement.validity.valid) {
     //условие НЕвалидности
@@ -58,13 +58,13 @@ const hasInvalidInput = (inputList) => {
 //функция отключения кнопки
 const disableSubmitButton = (buttonElement, inactiveButtonClass) => {
   buttonElement.classList.add(inactiveButtonClass);
-  buttonElement.setAttribute("disabled", "");
+  buttonElement.setAttribute('disabled', '');
 };
 
 //функция включения кнопки
 const enableSubmitButton = (buttonElement, inactiveButtonClass) => {
   buttonElement.classList.remove(inactiveButtonClass);
-  buttonElement.removeAttribute("disabled");
+  buttonElement.removeAttribute('disabled');
 };
 
 //функция переключения состояния кнопки сабмита
@@ -92,14 +92,14 @@ const setEventListeners = (
   errorClass,
   inactiveButtonClass
 ) => {
-  formElement.addEventListener("submit", (evt) => {
+  formElement.addEventListener('submit', (evt) => {
     evt.preventDefault();
   });
 
   const inputList = Array.from(formElement.querySelectorAll(inputSelector)); //ищем и добавляем в переменную все поля ввода
   inputList.forEach((inputElement) => {
     //проходимся по всем инпутам
-    inputElement.addEventListener("input", () => {
+    inputElement.addEventListener('input', () => {
       //навешиваем на все инпуты обработчик события ввода
       checkInputValidity(
         formElement,
