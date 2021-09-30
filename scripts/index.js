@@ -1,5 +1,6 @@
-import Card from './Card.js';
+import Card           from './Card.js';
 import {initialCards} from './initial-cards.js';
+import FormValidator  from './FormValidator.js';
 
 const popupEditProfile = document.querySelector('.popup_type_edit'); //попап редактирования профиля
 const editButton = document.querySelector('.profile__edit-button'); //кнопка вызова попапа редактироования профиля
@@ -16,7 +17,8 @@ const imgLinkInput = document.querySelector('.popup__input_is_img-link');
 const formAddCard = document.querySelector('.popup__form_type_add'); //форма добавления карточки
 const popupImage = document.querySelector('.popup_type_full-screen');
 const closePopupButtonImage = document.querySelector('.popup__close-button_type_full-screen');
-const cardContainer = document.querySelector('.elements'); //секция для добавления карточек
+const cardSection = document.querySelector('.elements'); //секция для добавления карточек
+const formList = Array.from(document.querySelectorAll('.popup__form')); //массив форм
 
 // функция открытия попапа
 const openPopup = (element) => {
@@ -70,15 +72,15 @@ const handlePreviewImage = (name, link) => {
   openPopup(popupImage);
 };
 
-const renderCard = (data, container) => {
+const renderCard = (data, section) => {
   const card = new Card(data, '#element-template', handlePreviewImage);
   const cardElement = card.createCard();
-  container.prepend(cardElement);
+  section.prepend(cardElement);
 };
 
 //отрисовка стартовых карточек из массива
 initialCards.forEach((item) => {
-  renderCard(item, cardContainer);
+  renderCard(item, cardSection);
 });
 
 //функция обработки сабмита добавления карточки
@@ -87,7 +89,7 @@ const handleCardFormSubmit = (evt) => {
   renderCard({
     name: placeNameInput.value,
     link: imgLinkInput.value,
-  }, cardContainer);
+  }, cardSection);
   formAddCard.reset();
   closePopup(popupAddCard);
   const buttonAddCard = popupAddCard.querySelector('.popup__button');
@@ -137,5 +139,10 @@ const validationConfig = {
   errorClass: 'popup__error_visible'
 };
 
-//вызов функции валидации
-enableValidation(validationConfig);
+//создание экземпляра класса FormValidator для каждой формы и вызов публичного метода enableValidation
+formList.forEach((form) => {
+  const formValidator = new FormValidator(validationConfig, form);
+  formValidator.enableValidation();
+});
+
+
