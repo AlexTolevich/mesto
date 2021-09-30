@@ -11,7 +11,7 @@ export default class FormValidator {
 //приватный метод отображения ошибки
   _showInputError(inputElement) {
     inputElement.classList.add(this._config.inputErrorClass); //добавляем класс стилизации поля при ошибке
-    this._errorElement = this._formElement.querySelector(`#${inputElement.id}-error`)
+    this._errorElement = this._formElement.querySelector(`#${inputElement.id}-error`);
     this._errorElement.textContent = inputElement.validationMessage; //добавляем текст ошибки элементу span
     this._errorElement.classList.add(this._config.errorClass); //добавляем класс отображения сообщения об ошибке
   };
@@ -19,6 +19,7 @@ export default class FormValidator {
 //приватный метод скрытия ошибки
   _hideInputError(inputElement) {
     inputElement.classList.remove(this._config.inputErrorClass);
+    this._errorElement = this._formElement.querySelector(`#${inputElement.id}-error`);
     this._errorElement.classList.remove(this._config.errorClass);
     this._errorElement.textContent = '';
   };
