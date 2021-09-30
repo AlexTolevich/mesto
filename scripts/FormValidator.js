@@ -5,10 +5,9 @@ export default class FormValidator {
     this._formElement = form;
     this._inputList = Array.from(this._formElement.querySelectorAll(this._config.inputSelector));
     this._submitButton = this._formElement.querySelector(this._config.submitButtonSelector);
-  }
+  };
 
-
-//приватный метод отображения ошибки
+  //приватный метод отображения ошибки
   _showInputError(inputElement) {
     inputElement.classList.add(this._config.inputErrorClass); //добавляем класс стилизации поля при ошибке
     this._errorElement = this._formElement.querySelector(`#${inputElement.id}-error`);
@@ -16,7 +15,7 @@ export default class FormValidator {
     this._errorElement.classList.add(this._config.errorClass); //добавляем класс отображения сообщения об ошибке
   };
 
-//приватный метод скрытия ошибки
+  //приватный метод скрытия ошибки
   _hideInputError(inputElement) {
     inputElement.classList.remove(this._config.inputErrorClass);
     this._errorElement = this._formElement.querySelector(`#${inputElement.id}-error`);
@@ -24,12 +23,10 @@ export default class FormValidator {
     this._errorElement.textContent = '';
   };
 
-//приватный метод валидности поля
+  //приватный метод валидности поля
   _checkInputValidity(inputElement) {
-    // const errorElement = formElement.querySelector(`#${inputElement.id}-error`); //ищем и добавляем в переменную спан с ошибкой по id инпута + окончание id span '-error'
-
     if (!inputElement.validity.valid) {
-      //условие НЕвалидности
+      //условие Не валидности
       this._showInputError(inputElement); //есть ошибка вызов функции отображения ошибки
     } else {
       //условие валидности
@@ -37,11 +34,11 @@ export default class FormValidator {
     }
   };
 
-//приватный метод наличия невалидного инпута в форме
+  //приватный метод наличия невалидного инпута в форме
   _hasInvalidInput() {
     return this._inputList.some((inputElement) => {
       //проверка на соответствие хотя бы одного элемента
-      return !inputElement.validity.valid; //проверка на НЕвалидность элемента
+      return !inputElement.validity.valid; //проверка на не валидность элемента
     });
   };
 
@@ -52,19 +49,19 @@ export default class FormValidator {
 //     });
 //   }
 
-//приватный метод отключения кнопки
+  //приватный метод отключения кнопки
   _disableSubmitButton() {
     this._submitButton.classList.add(this._config.inactiveButtonClass);
     this._submitButton.setAttribute('disabled', '');
   };
 
-//приватный метод включения кнопки
+  //приватный метод включения кнопки
   _enableSubmitButton() {
     this._submitButton.classList.remove(this._config.inactiveButtonClass);
     this._submitButton.removeAttribute('disabled');
   };
 
-//приватный метод переключения состояния кнопки сабмита
+  //приватный метод переключения состояния кнопки сабмита
   _toggleButtonState() {
     if (this._hasInvalidInput()) {
       this._disableSubmitButton();
@@ -73,7 +70,7 @@ export default class FormValidator {
     }
   };
 
-//приватный метод навешивания обработчиков событий для формы
+  //приватный метод навешивания обработчиков событий для формы
   _setEventListeners() {
     this._formElement.addEventListener('submit', (evt) => {
       evt.preventDefault();
@@ -90,7 +87,7 @@ export default class FormValidator {
     this._toggleButtonState();
   };
 
-//публичный метод включающий валидацию
+  //публичный метод включающий валидацию
   enableValidation() {
     this._setEventListeners();
   };

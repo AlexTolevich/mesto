@@ -3,14 +3,14 @@ import {initialCards} from './initial-cards.js';
 import FormValidator  from './FormValidator.js';
 
 const popupEditProfile = document.querySelector('.popup_type_edit'); //попап редактирования профиля
-const editButton = document.querySelector('.profile__edit-button'); //кнопка вызова попапа редактироования профиля
+const editButton = document.querySelector('.profile__edit-button'); //кнопка вызова попапа редактирования профиля
 const closePopupButtonTypeEdit = document.querySelector('.popup__close-button_type_edit'); //кнопка закрытия попапа редактирования профиля
 const nameInput = document.querySelector('.popup__input_is_name');
 const jobInput = document.querySelector('.popup__input_is_job');
 const profileName = document.querySelector('.profile__name');
 const profileJob = document.querySelector('.profile__job');
 const popupAddCard = document.querySelector('.popup_type_add'); //попап добавления карточек
-const addButton = document.querySelector('.profile__add-button'); //кнопка вызова попапа редактироования профиля
+const addButton = document.querySelector('.profile__add-button'); //кнопка вызова попапа редактирования профиля
 const closePopupButtonAddCard = document.querySelector('.popup__close-button_type_add'); //кнопка закрытия попапа профиля
 const placeNameInput = document.querySelector('.popup__input_is_place-name');
 const imgLinkInput = document.querySelector('.popup__input_is_img-link');
@@ -43,7 +43,7 @@ const closePopupEscClick = (evt) => {
 
 //функция закрытия попап кликом на 'оверлей'
 const closePopupOverlayClick = (evt) => {
-  if (evt.target.classList.contains('popup_opened')) { //определяем нажатие мыши на оверлай открытого попап
+  if (evt.target.classList.contains('popup_opened')) { //определяем нажатие мыши на оверлей открытого попап
     closePopup(document.querySelector('.popup_opened')); //находим элемент открытого попап и передаем его как аргумент функции закрытия попап
   }
 };
@@ -56,9 +56,9 @@ const getDefaultInfoProfile = () => {
 
 //функция обработки сабмита профиля
 const handleProfileFormSubmit = (evt) => {
-  evt.preventDefault(); //сброс дефолтных действий браузера по сабмиту
+  evt.preventDefault(); //сброс дефолтных действий браузера по сабмит
   profileName.textContent = nameInput.value; //изменяем текстовые значения на странице в заголовке h1.profile__name
-  profileJob.textContent = jobInput.value; // и p.profile__job на значения введенные пользоателем
+  profileJob.textContent = jobInput.value; // и p.profile__job на значения введенные пользователем
   closePopup(popupEditProfile); //вызов функции закрытия popup
 };
 
@@ -71,7 +71,8 @@ const handlePreviewImage = (name, link) => {
   captionImageElement.textContent = name;
   openPopup(popupImage);
 };
-//функиця создания карточки
+
+//функция создания карточки
 const renderCard = (data, section) => {
   const card = new Card(data, '#element-template', handlePreviewImage);
   const cardElement = card.createCard();
@@ -102,13 +103,13 @@ closePopupButtonImage.addEventListener('click', () => {
   closePopup(popupImage);
 });
 
-//вызов функции открытия popup редактировния профиля
+//вызов функции открытия popup редактирования профиля
 editButton.addEventListener('click', () => {
   openPopup(popupEditProfile);
   getDefaultInfoProfile();
 });
 
-//вызов функции закрытия popup редактировния профиля
+//вызов функции закрытия popup редактирования профиля
 closePopupButtonTypeEdit.addEventListener('click', () => {
   closePopup(popupEditProfile);
 });
@@ -116,7 +117,7 @@ closePopupButtonTypeEdit.addEventListener('click', () => {
 //вызов функции обработки сабмита редактирования профиля
 popupEditProfile.addEventListener('submit', handleProfileFormSubmit);
 
-// //вызов функции открытия popup добавления карточки
+//вызов функции открытия popup добавления карточки
 addButton.addEventListener('click', () => {
   openPopup(popupAddCard);
 });
