@@ -25,18 +25,19 @@ export default class Card {
     return this._element;
   };
 
+  //приватный метод установки слушателей
   _setEventListeners() {
     this._element.querySelector('.element__like').addEventListener('click', this._handleLikeElement); //слушатель кнопки element__like
     this._element.querySelector('.element__remove').addEventListener('click', this._handleDeleteElement); //слушатель кнопки element__remove
     this._element.querySelector('.element__photo').addEventListener('click', () => this._handlePreviewImage(this._nameCard, this._linkCard));
   };
 
-  //функция снятия/установки like
+  //приватный метод снятия/установки like
   _handleLikeElement(event) {
     event.target.classList.toggle('element__like_active');
   };
 
-  //функция удаления карточки
+  //приватный метод удаления карточки
   _handleDeleteElement(event) {
     event.target.closest('.element').remove();
   };

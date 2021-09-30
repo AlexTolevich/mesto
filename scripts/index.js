@@ -71,7 +71,7 @@ const handlePreviewImage = (name, link) => {
   captionImageElement.textContent = name;
   openPopup(popupImage);
 };
-
+//функиця создания карточки
 const renderCard = (data, section) => {
   const card = new Card(data, '#element-template', handlePreviewImage);
   const cardElement = card.createCard();

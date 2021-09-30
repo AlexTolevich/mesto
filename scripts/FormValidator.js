@@ -8,7 +8,7 @@ export default class FormValidator {
   }
 
 
-//функция отображения ошибки
+//приватный метод отображения ошибки
   _showInputError(inputElement) {
     inputElement.classList.add(this._config.inputErrorClass); //добавляем класс стилизации поля при ошибке
     this._errorElement = this._formElement.querySelector(`#${inputElement.id}-error`)
@@ -16,14 +16,14 @@ export default class FormValidator {
     this._errorElement.classList.add(this._config.errorClass); //добавляем класс отображения сообщения об ошибке
   };
 
-//функция скрытия ошибки
+//приватный метод скрытия ошибки
   _hideInputError(inputElement) {
     inputElement.classList.remove(this._config.inputErrorClass);
     this._errorElement.classList.remove(this._config.errorClass);
     this._errorElement.textContent = '';
   };
 
-//функция проверки валидности поля
+//приватный метод валидности поля
   _checkInputValidity(inputElement) {
     // const errorElement = formElement.querySelector(`#${inputElement.id}-error`); //ищем и добавляем в переменную спан с ошибкой по id инпута + окончание id span '-error'
 
@@ -36,7 +36,7 @@ export default class FormValidator {
     }
   };
 
-//функция проверки наличия невалидного инпута в форме
+//приватный метод наличия невалидного инпута в форме
   _hasInvalidInput() {
     return this._inputList.some((inputElement) => {
       //проверка на соответствие хотя бы одного элемента
@@ -44,26 +44,26 @@ export default class FormValidator {
     });
   };
 
-//функция проверки наличия данных в инпуте, пока не работает, т.к. проверка осуществляется только при начале события input
+//приватный метод наличия данных в инпуте, пока не работает, т.к. проверка осуществляется только при начале события input
 //   _hasNotInputValue = () => {
 //     return this._inputList.every((inputElement) => {
 //       return inputElement.value.length === 0;
 //     });
 //   }
 
-//функция отключения кнопки
+//приватный метод отключения кнопки
   _disableSubmitButton() {
     this._submitButton.classList.add(this._config.inactiveButtonClass);
     this._submitButton.setAttribute('disabled', '');
   };
 
-//функция включения кнопки
+//приватный метод включения кнопки
   _enableSubmitButton() {
     this._submitButton.classList.remove(this._config.inactiveButtonClass);
     this._submitButton.removeAttribute('disabled');
   };
 
-//функция переключения состояния кнопки сабмита
+//приватный метод переключения состояния кнопки сабмита
   _toggleButtonState() {
     if (this._hasInvalidInput()) {
       this._disableSubmitButton();
@@ -72,7 +72,7 @@ export default class FormValidator {
     }
   };
 
-//функция навешивания обработчиков событий для формы
+//приватный метод навешивания обработчиков событий для формы
   _setEventListeners() {
     this._formElement.addEventListener('submit', (evt) => {
       evt.preventDefault();
@@ -89,6 +89,7 @@ export default class FormValidator {
     this._toggleButtonState();
   };
 
+//публичный метод включающий валидацию
   enableValidation() {
     this._setEventListeners();
   };
