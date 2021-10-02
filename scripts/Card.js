@@ -35,6 +35,7 @@ export default class Card {
   //приватный метод снятия/установки like
   _handleLikeElement(event) {
     event.target.classList.toggle('element__like_active');
+    this._element = null;
   };
 
   //приватный метод удаления карточки

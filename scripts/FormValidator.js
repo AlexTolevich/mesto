@@ -49,6 +49,14 @@ export default class FormValidator {
 //     });
 //   }
 
+  //публичный метод для очистки ошибок и управления кнопкой
+  resetValidation() {
+    this._toggleButtonState();
+    this._inputList.forEach((inputElement) => {
+      this._hideInputError(inputElement)
+    });
+  }
+
   //приватный метод отключения кнопки
   _disableSubmitButton() {
     this._submitButton.classList.add(this._config.inactiveButtonClass);
