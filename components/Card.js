@@ -1,6 +1,8 @@
+import {btnLikeSelector, btnRemoveCardSelector, likeActiveSelector, photoCardSelector} from '../utils/constants.js';
+
 export default class Card {
 
-  constructor(data, elementTemplate, handlePreviewImage) {
+  constructor({data}, handlePreviewImage, elementTemplate) {
     this._nameCard = data.name;
     this._linkCard = data.link;
     this._elementTemplate = elementTemplate;
@@ -27,14 +29,17 @@ export default class Card {
 
   //приватный метод установки слушателей
   _setEventListeners() {
-    this._element.querySelector('.element__like').addEventListener('click', this._handleLikeElement); //слушатель кнопки element__like
-    this._element.querySelector('.element__remove').addEventListener('click', this._handleDeleteElement); //слушатель кнопки element__remove
-    this._element.querySelector('.element__photo').addEventListener('click', () => this._handlePreviewImage(this._nameCard, this._linkCard));
+    this._element.querySelector(btnLikeSelector).addEventListener('click', this._handleLikeElement); //слушатель кнопки element__like
+    this._element.querySelector(btnRemoveCardSelector).addEventListener('click', this._handleDeleteElement); //слушатель кнопки element__remove
+    this._element.querySelector(photoCardSelector).addEventListener('click', () => this._handlePreviewImage({
+      name: this._nameCard,
+      link: this._linkCard
+    }));
   };
 
   //приватный метод снятия/установки like
   _handleLikeElement(event) {
-    event.target.classList.toggle('element__like_active');
+    event.target.classList.toggle(likeActiveSelector);
     this._element = null;
   };
 
