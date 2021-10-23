@@ -1,3 +1,5 @@
+import './index.css';
+
 import {initialCards} from '../utils/initial-cards.js';
 import {
   editButton,

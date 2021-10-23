@@ -6,14 +6,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="author" content="Александр Кузнецов" />
     <meta name="keywords" content="Путешествие, место, Россия" />
-    <link rel="stylesheet" href="./pages/index.css" />
     <title>Место</title>
   </head>
 
   <body class="root">
     <header class="header">
       <img
-        src="./images/logo-mesto.svg"
+        src="<%=require("./images/logo-mesto.svg")%>"
         alt="Логотип Место"
         class="header__logo"
       />
@@ -23,7 +22,7 @@
       <section class="profile">
         <div class="profile__container">
           <img
-            src="./images/avatar.jpg"
+            src="<%=require("./images/avatar.jpg")%>"
             alt="аватар профиля"
             class="profile__avatar"
           />
@@ -166,6 +165,5 @@
       </article>
     </template>
 
-    <script type="module" src="pages/index.js"></script>
   </body>
 </html>
