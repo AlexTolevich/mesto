@@ -34,7 +34,7 @@ export default class FormValidator {
     }
   };
 
-  //приватный метод наличия невалидного инпута в форме
+  //приватный метод наличия невалидного input в форме
   _hasInvalidInput() {
     return this._inputList.some((inputElement) => {
       //проверка на соответствие хотя бы одного элемента
@@ -42,7 +42,7 @@ export default class FormValidator {
     });
   };
 
-//приватный метод наличия данных в инпуте, пока не работает, т.к. проверка осуществляется только при начале события input
+//приватный метод наличия данных в input, пока не работает, т.к. проверка осуществляется только при начале события input
 //   _hasNotInputValue = () => {
 //     return this._inputList.every((inputElement) => {
 //       return inputElement.value.length === 0;
@@ -69,7 +69,7 @@ export default class FormValidator {
     this._submitButton.removeAttribute('disabled');
   };
 
-  //приватный метод переключения состояния кнопки сабмита
+  //приватный метод переключения состояния кнопки сабмит
   _toggleButtonState() {
     if (this._hasInvalidInput()) {
       this._disableSubmitButton();
@@ -87,8 +87,8 @@ export default class FormValidator {
     this._inputList.forEach((inputElement) => {
       //проходимся по всем инпутам
       inputElement.addEventListener('input', () => {
-        //навешиваем на все инпуты обработчик события ввода
-        this._checkInputValidity(inputElement); //вызываем функцию проверки валидности инпута
+        //навешиваем на все input обработчик события ввода
+        this._checkInputValidity(inputElement); //вызываем функцию проверки валидности input
         this._toggleButtonState();
       });
     });
