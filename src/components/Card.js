@@ -1,12 +1,23 @@
-import {btnLikeSelector, btnRemoveCardSelector, likeActiveSelector, photoCardSelector} from '../utils/constants.js';
+import {
+  btnLikeSelector,
+  btnRemoveCardSelector,
+  likeActiveSelector,
+  photoCardSelector,
+  likesCountSelector,
+  photoTitleSelector
+} from '../utils/constants.js';
 
 export default class Card {
-
-  constructor({data}, handlePreviewImage, elementTemplate) {
+  constructor({data}, handlePreviewImage, handleDeleteElement, elementTemplate, userId) {
     this._nameCard = data.name;
     this._linkCard = data.link;
+    this._likesCount = data.likes;
     this._elementTemplate = elementTemplate;
     this._handlePreviewImage = handlePreviewImage;
+    this._handleDeleteElement = handleDeleteElement;
+    this._userId = userId;
+
+    this._ownerId = data.owner._id;
   };
 
   //приватный метод загрузки шаблона document
@@ -16,16 +27,30 @@ export default class Card {
       .cloneNode(true);
   };
 
+  _removeDelBtn() {
+    if(this._userId !== this._ownerId) {
+      this._element.querySelector(".element__remove").remove();
+    }
+  }
+
   //публичный метод наполнения карточки контентом
   createCard() {
     this._element = this._getTemplate();
+
     this._setEventListeners();
-    const photo = this._element.querySelector('.element__photo');
+    this._removeDelBtn();
+    const photo = this._element.querySelector(photoCardSelector);
     photo.src = this._linkCard;
     photo.alt = this._nameCard;
-    this._element.querySelector('.element__title').textContent = this._nameCard;
+    this._element.querySelector(photoTitleSelector).textContent = this._nameCard;
+    this._element.querySelector(likesCountSelector).textContent = this._likesCount.length;
+    console.log(this._userId)
+    // console.log(this._ownerId)
     return this._element;
   };
+
+
+
 
   //приватный метод установки слушателей
   _setEventListeners() {
@@ -43,8 +68,8 @@ export default class Card {
     this._element = null;
   };
 
-  //приватный метод удаления карточки
-  _handleDeleteElement(event) {
-    event.target.closest('.element').remove();
-  };
+  // //приватный метод удаления карточки
+  // _handleDeleteElement(event) {
+  //   event.target.closest('.element').remove();
+  // };
 }

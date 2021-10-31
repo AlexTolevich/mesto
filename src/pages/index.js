@@ -1,6 +1,5 @@
 import './index.css';
 
-import {initialCards} from '../utils/initial-cards.js';
 import {
   editButton,
   nameInput,
@@ -15,14 +14,66 @@ import {
   profileNameSelector,
   profileJobSelector,
   popupEditProfileSelector,
+  profileImgSelector,
+  likesCountSelector,
   validationConfig
-}                     from '../utils/constants.js';
-import Card           from '../components/Card.js';
-import FormValidator  from '../components/FormValidator.js';
-import Section        from '../components/Section.js';
-import PopupWithImage from '../components/PopupWithImage.js';
-import PopupWithForm  from '../components/PopupWithForm.js';
-import UserInfo       from '../components/UserInfo.js';
+}                            from '../utils/constants.js';
+import Card                  from '../components/Card.js';
+import FormValidator         from '../components/FormValidator.js';
+import Section               from '../components/Section.js';
+import PopupWithImage        from '../components/PopupWithImage.js';
+import PopupWithForm         from '../components/PopupWithForm.js';
+import UserInfo              from '../components/UserInfo.js';
+import Api                   from '../components/Api.js'
+import PopupWithConfirmation from '../components/PopupWithConfirmation.js';
+import Popup                 from '../components/Popup.js';
+
+const api = new Api({
+  baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-29/',
+  headers: {
+    authorization: 'af44a922-d278-427e-a751-f282a0177a52',
+    'Content-Type': 'application/json'
+  }
+});
+
+let userId
+
+api
+  .getAppInfo()
+  .then(([userInfoRes, cardListRes]) => {
+    userId = userInfoRes._id;
+    userInfo.setUserInfo({
+      popup_name: userInfoRes.name,
+      popup_job: userInfoRes.about,
+      avatar: userInfoRes.avatar
+    });
+    cardList.renderItems(cardListRes)
+
+    console.log(userId);
+  })
+  .catch((err) => {
+    console.log(`Ошибка загрузки данных: ${err}`);
+  });
+
+const userInfo = new UserInfo(profileNameSelector, profileJobSelector, profileImgSelector);
+
+/**
+ * создание экземпляра класса PopupWithForm для редактирования профиля пользователя
+ * @type {PopupWithForm}
+ */
+const userInfoPopup = new PopupWithForm(popupEditProfileSelector, (data) => {
+  api.setUserInfo(data)
+    .then(userInfoRes => userInfo.setUserInfo({
+      popup_name: userInfoRes.name,
+      popup_job: userInfoRes.about,
+      avatar: userInfoRes.avatar
+    }))
+    .catch((err) => {
+      console.log(`Ошибка установки данных пользователя: ${err}`);
+    });
+});
+
+userInfoPopup.setEventListeners();
 
 //создание экземпляра класса FormValidator для каждой формы и вызов публичного метода enableValidation
 const formValidEditProfile = new FormValidator(validationConfig, formEditProfile);
@@ -35,6 +86,7 @@ formValidEditProfile.enableValidation();
  * @type {PopupWithImage}
  */
 const imagePopup = new PopupWithImage(popupImageSelector);
+
 imagePopup.setEventListeners();
 
 /**
@@ -49,27 +101,36 @@ function createNewCard(item) {
     () => {
       imagePopup.open(item.link, item.name)
     },
-    elementTemplate
+    () => {
+      popupConfirmation.open()
+    },
+    elementTemplate,
+    userId
   );
   return card.createCard();
 }
+
+const popupConfirmation = new PopupWithConfirmation('.popup_type_confirmation');
+popupConfirmation.setEventListeners();
 
 /**
  * создание экземпляра класса Section для создания массива карточек
  * @type {Section}
  */
 const cardList = new Section({
-    items: initialCards,
     renderer: (item) => {
       cardList.addItem(createNewCard(item));
     }
   }, cardSectionSelector
 );
 
-cardList.renderItems();
-
 const handleCardFormSubmit = (data) => {
-  cardList.addItem(createNewCard(data));
+  api.postNewCard(data)
+    .then(res => cardList.addItem(createNewCard(res))
+    )
+    .catch((err) => {
+      console.log(`Ошибка отправки данных карточки: ${err}`);
+    });
 }
 
 const newCardPopup = new PopupWithForm(popupAddCardSelector, handleCardFormSubmit);
@@ -81,13 +142,6 @@ addButton.addEventListener('click', () => {
   newCardPopup.open();
 });
 
-const userInfo = new UserInfo(profileNameSelector, profileJobSelector);
-
-const userInfoPopup = new PopupWithForm(popupEditProfileSelector, (data) => {
-  userInfo.setUserInfo(data);
-});
-userInfoPopup.setEventListeners();
-
 //вызов функции открытия popup редактирования профиля
 editButton.addEventListener('click', () => {
   const userData = userInfo.getUserInfo();
@@ -97,3 +151,5 @@ editButton.addEventListener('click', () => {
   formValidEditProfile.resetValidation();
   userInfoPopup.open();
 });
+
+

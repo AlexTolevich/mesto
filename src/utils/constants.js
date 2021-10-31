@@ -43,6 +43,9 @@ export const btnRemoveCardSelector = '.element__remove';
 //селектор фото карточки
 export const photoCardSelector ='.element__photo';
 
+//селектор заголовка карточки
+export const photoTitleSelector ='.element__title';
+
 //селектор форм
 export const popupFormSelector = '.popup__form';
 
@@ -50,10 +53,16 @@ export const popupFormSelector = '.popup__form';
 export const popupInputSelector = '.popup__input';
 
 //селектор описания фото popup
-export const popupImgCaptionSelector = '.popup__image-caption'
+export const popupImgCaptionSelector = '.popup__image-caption';
 
 //селектор фото popup
-export const popupImgSelector ='.popup__image'
+export const popupImgSelector ='.popup__image';
+
+//селектор фото аватар
+export const profileImgSelector ='.profile__avatar';
+
+//селектор счетчика лайков
+export const likesCountSelector ='.element__likes-count';
 
 //конфигурация валидации
 export const validationConfig = {

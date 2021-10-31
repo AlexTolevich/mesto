@@ -1,6 +1,5 @@
 export default class Section {
-  constructor({items, renderer}, containerSelector) {
-    this._initialArray = items;
+  constructor({renderer}, containerSelector) {
     this._renderer = renderer;
     this._container = document.querySelector(containerSelector);
   }
@@ -8,8 +7,8 @@ export default class Section {
   /**
    * публичный метод вызова функции-колбэк renderer для каждого элемента (item) из массива
    */
-  renderItems() {
-    this._initialArray.forEach(item => {
+  renderItems(items) {
+    items.reverse().forEach(item => {
       this._renderer(item);
     });
   }
