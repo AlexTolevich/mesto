@@ -8,16 +8,17 @@ import {
 } from '../utils/constants.js';
 
 export default class Card {
-  constructor({data}, handlePreviewImage, handleDeleteElement, elementTemplate, userId) {
+  constructor({data}, handlePreviewImage, handleDeleteElement, handleLikeElement, elementTemplate, userId) {
     this._nameCard = data.name;
     this._linkCard = data.link;
-    this._likesCount = data.likes;
+    this._likes = data.likes;
     this._elementTemplate = elementTemplate;
     this._handlePreviewImage = handlePreviewImage;
     this._handleDeleteElement = handleDeleteElement;
-    this._userId = userId;
-
+    this._handleLikeElement = handleLikeElement;
+    this._userId = userId.id;
     this._ownerId = data.owner._id;
+
   };
 
   //приватный метод загрузки шаблона document
@@ -28,29 +29,28 @@ export default class Card {
   };
 
   _removeDelBtn() {
-    if(this._userId !== this._ownerId) {
-      this._element.querySelector(".element__remove").remove();
+    if (this._userId !== this._ownerId) {
+      this._element.querySelector('.element__remove').remove();
     }
+  }
+
+  counterLikes(likes) {
+    this._element.querySelector(likesCountSelector).textContent = likes.length
   }
 
   //публичный метод наполнения карточки контентом
   createCard() {
     this._element = this._getTemplate();
-
     this._setEventListeners();
     this._removeDelBtn();
     const photo = this._element.querySelector(photoCardSelector);
     photo.src = this._linkCard;
     photo.alt = this._nameCard;
     this._element.querySelector(photoTitleSelector).textContent = this._nameCard;
-    this._element.querySelector(likesCountSelector).textContent = this._likesCount.length;
-    console.log(this._userId)
-    // console.log(this._ownerId)
+    this._checkLikeUser()
+    this.counterLikes(this._likes);
     return this._element;
   };
-
-
-
 
   //приватный метод установки слушателей
   _setEventListeners() {
@@ -62,14 +62,17 @@ export default class Card {
     }));
   };
 
-  //приватный метод снятия/установки like
-  _handleLikeElement(event) {
-    event.target.classList.toggle(likeActiveSelector);
-    this._element = null;
+  _checkLikeUser() {
+    this._likes.forEach((item) => {
+      if (this._userId === item._id) {
+        this._element.querySelector(btnLikeSelector).classList.add(likeActiveSelector);
+      }
+    });
   };
 
-  // //приватный метод удаления карточки
-  // _handleDeleteElement(event) {
-  //   event.target.closest('.element').remove();
-  // };
+  //публичный метод удаления карточки
+  deleteElement() {
+    this._element.remove();
+    this._element = null;
+  };
 }

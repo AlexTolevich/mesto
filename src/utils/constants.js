@@ -9,6 +9,7 @@ export const jobInput = document.querySelector('.popup__input_is_job');
 //формы
 export const formEditProfile = document.querySelector('.popup__form_type_edit-profile'); //форма редактирования профиля
 export const formAddCard = document.querySelector('.popup__form_type_add'); //форма добавления карточки
+export const formEditAvatar = document.querySelector('.popup__form_type_avatar'); //форма редактирования аватара
 
 //селекторы классов popups
 export const popupImageSelector = '.popup_type_full-screen';
@@ -63,6 +64,9 @@ export const profileImgSelector ='.profile__avatar';
 
 //селектор счетчика лайков
 export const likesCountSelector ='.element__likes-count';
+
+//переменная с Id пользователя
+export const userId = {};
 
 //конфигурация валидации
 export const validationConfig = {

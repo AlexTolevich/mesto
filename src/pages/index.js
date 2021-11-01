@@ -7,6 +7,7 @@ import {
   addButton,
   formEditProfile,
   formAddCard,
+  formEditAvatar,
   popupImageSelector,
   elementTemplate,
   cardSectionSelector,
@@ -15,7 +16,8 @@ import {
   profileJobSelector,
   popupEditProfileSelector,
   profileImgSelector,
-  likesCountSelector,
+  likeActiveSelector,
+  userId,
   validationConfig
 }                            from '../utils/constants.js';
 import Card                  from '../components/Card.js';
@@ -26,7 +28,6 @@ import PopupWithForm         from '../components/PopupWithForm.js';
 import UserInfo              from '../components/UserInfo.js';
 import Api                   from '../components/Api.js'
 import PopupWithConfirmation from '../components/PopupWithConfirmation.js';
-import Popup                 from '../components/Popup.js';
 
 const api = new Api({
   baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-29/',
@@ -36,20 +37,17 @@ const api = new Api({
   }
 });
 
-let userId
-
 api
   .getAppInfo()
   .then(([userInfoRes, cardListRes]) => {
-    userId = userInfoRes._id;
+    userId.id = userInfoRes._id;
+    console.log(cardListRes)
     userInfo.setUserInfo({
       popup_name: userInfoRes.name,
       popup_job: userInfoRes.about,
       avatar: userInfoRes.avatar
     });
     cardList.renderItems(cardListRes)
-
-    console.log(userId);
   })
   .catch((err) => {
     console.log(`Ошибка загрузки данных: ${err}`);
@@ -76,8 +74,10 @@ const userInfoPopup = new PopupWithForm(popupEditProfileSelector, (data) => {
 userInfoPopup.setEventListeners();
 
 //создание экземпляра класса FormValidator для каждой формы и вызов публичного метода enableValidation
+const formValidEditAvatar = new FormValidator(validationConfig,formEditAvatar);
 const formValidEditProfile = new FormValidator(validationConfig, formEditProfile);
 const formValidAddCard = new FormValidator(validationConfig, formAddCard);
+formValidEditAvatar.enableValidation();
 formValidAddCard.enableValidation();
 formValidEditProfile.enableValidation();
 
@@ -86,7 +86,6 @@ formValidEditProfile.enableValidation();
  * @type {PopupWithImage}
  */
 const imagePopup = new PopupWithImage(popupImageSelector);
-
 imagePopup.setEventListeners();
 
 /**
@@ -103,6 +102,34 @@ function createNewCard(item) {
     },
     () => {
       popupConfirmation.open()
+      popupConfirmation.submitAction(() => {
+        api.deleteCard(item)
+          .then(() => {
+            card.deleteElement()
+            popupConfirmation.close()
+          })
+          .catch((err) =>
+            console.log(`Ошибка удаления карточки: ${err}`));
+      })
+    },
+    (evt) => {
+      if (evt.target.classList.contains(likeActiveSelector)) {
+        api.delLike(item)
+          .then((res) => {
+            card.counterLikes(res.likes);
+            evt.target.classList.remove(likeActiveSelector)
+          })
+          .catch((err) =>
+            console.log(`Ошибка удаления лайка: ${err}`));
+      } else {
+        api.setLike(item)
+          .then((res) => {
+            card.counterLikes(res.likes);
+            evt.target.classList.add(likeActiveSelector)
+          })
+          .catch((err) =>
+            console.log(`Ошибка установки лайка: ${err}`));
+      }
     },
     elementTemplate,
     userId

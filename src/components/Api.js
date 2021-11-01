@@ -36,67 +36,28 @@ export default class Api {
       .then(res => res.ok ? res.json() : Promise.reject(res.status))
   }
 
+  deleteCard(card) {
+    return fetch(`${this._baseUrl}cards/${card._id}`, {
+      method: 'DELETE',
+      headers: this._headers,
+    })
+      .then(res => res.ok ? res.json() : Promise.reject(res.status))
+  }
 
+  setLike(card) {
+    return fetch(`${this._baseUrl}cards/likes/${card._id}`, {
+      method: 'PUT',
+      headers: this._headers,
+    })
+      .then(res => res.ok ? res.json() : Promise.reject(res.status))
+  }
+
+  delLike(card) {
+    return fetch(`${this._baseUrl}cards/likes/${card._id}`, {
+      method: 'DELETE',
+      headers: this._headers,
+    })
+      .then(res => res.ok ? res.json() : Promise.reject(res.status))
+  }
 
 }
-
-// export default class Api {
-//   constructor({address, groupId, token}) {
-//     this._address = address
-//     this._groupId = groupId
-//     this._token = token
-//   }
-//
-//   getAppInfo() {
-//     return Promise.all([this.getUserInfo(), this.getCardList()])
-//   }
-//
-//   getUserInfo() {
-//     return this._get('users/me')
-//   }
-//
-
-//
-//   getCardList() {
-//     return this._get('cards')
-//     // return fetch(`${this._address}/${this._groupId}/cards`, {
-//     // headers: {
-//     // authorization: this._token
-//     // }
-//     // })
-//     // .then(res => res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`))
-//   }
-//
-//   _get(query) {
-//     const options = {
-//       headers: {
-//         authorization: this._token
-//       }
-//     }
-//
-//     return fetch(this._url(query), options)
-//       .then(res => res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`))
-//   }
-
-//   setUserInfo(name, description) {
-//     return this._set('users/me', 'PATCH', {name, about: description})
-//   }
-
-//   _set(query, method, body) {
-//     const options = {
-//       method,
-//       headers: {
-//         authorization: this._token,
-//         'Content-Type': 'application/json'
-//       },
-//       body: JSON.stringify(body)
-//     }
-//
-//     return fetch(this._url(query), options)
-//       .then(res => res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`))
-//   }
-//
-//   _url(query) {
-//     return `${this._address}/${this._groupId}/${query}`
-//   }
-// }
