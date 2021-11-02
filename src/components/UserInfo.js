@@ -5,6 +5,10 @@ export default class UserInfo {
     this._avatar = document.querySelector(avatar);
   }
 
+  /**
+   * публичный метод получение данных пользователя в объект
+   * @returns {{name: *, avatar: *, job: *}}
+   */
   getUserInfo() {
     return {
       name: this._userName.textContent,
@@ -13,12 +17,20 @@ export default class UserInfo {
     }
   }
 
+  /**
+   * публичный метод установки данных пользователя
+   * @param data
+   */
   setUserInfo(data) {
     this._userName.textContent = data.popup_name;
     this._userJob.textContent = data.popup_job;
-    this._avatar.src = data.avatar
+    this.setUserAvatar(data);
   }
 
+  /**
+   * публичный метод установки аватара
+   * @param data
+   */
   setUserAvatar(data) {
     this._avatar.src = data.avatar
   }

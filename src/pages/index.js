@@ -79,12 +79,11 @@ formValidEditProfile.enableValidation();
 const imagePopup = new PopupWithImage(popupImageSelector);
 imagePopup.setEventListeners();
 
-
-const handlePreviewImage = () => {
+const handlePreviewImage = (item) => {
   imagePopup.open(item.link, item.name)
 }
 
-const handleDeleteElement = () => {
+const handleDeleteElement = (item, card) => {
   popupConfirmation.open()
   popupConfirmation.submitAction(() => {
     api.deleteCard(item)
@@ -97,7 +96,7 @@ const handleDeleteElement = () => {
   })
 }
 
-const handleLikeElement = (evt) => {
+const handleLikeElement = (evt, item, card) => {
   if (evt.target.classList.contains(likeActiveSelector)) {
     api.delLike(item)
       .then((res) => {
@@ -135,7 +134,6 @@ function createNewCard(item) {
   return card.createCard();
 }
 
-
 /**
  * создание экземпляра класса Section для создания массива карточек
  * @type {Section}
@@ -163,7 +161,6 @@ const handleUserInfoSubmit = (data) => {
       console.log(`Ошибка установки данных пользователя: ${err}`);
     })
     .finally(() => userInfoPopup.renderLoading(false));
-  ;
 }
 
 /**
@@ -196,6 +193,10 @@ const handleAvatarFormSubmit = (data) => {
 const editAvatarPopup = new PopupWithForm(popupEditAvatarSelector, handleAvatarFormSubmit);
 editAvatarPopup.setEventListeners();
 
+/**
+ * функция колбэк сабмита формы добавления карточек
+ * @param data
+ */
 const handleCardFormSubmit = (data) => {
   newCardPopup.renderLoading(true)
   api.postNewCard(data)
@@ -207,12 +208,15 @@ const handleCardFormSubmit = (data) => {
     .finally(() => newCardPopup.renderLoading(false));
 }
 
+/**
+ * создание экземпляра класса PopupWithForm создания карточек
+ * @type {PopupWithForm}
+ */
 const newCardPopup = new PopupWithForm(popupAddCardSelector, handleCardFormSubmit);
 newCardPopup.setEventListeners();
 
 const popupConfirmation = new PopupWithConfirmation('.popup_type_confirmation');
 popupConfirmation.setEventListeners();
-
 
 //вызов функции открытия popup редактирования аватар профиля
 avatarEditButton.addEventListener('click', () => {

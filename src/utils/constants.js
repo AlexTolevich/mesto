@@ -44,10 +44,10 @@ export const likeActiveSelector = 'element__like_active';
 export const btnRemoveCardSelector = '.element__remove';
 
 //селектор фото карточки
-export const photoCardSelector ='.element__photo';
+export const photoCardSelector = '.element__photo';
 
 //селектор заголовка карточки
-export const photoTitleSelector ='.element__title';
+export const photoTitleSelector = '.element__title';
 
 //селектор форм
 export const popupFormSelector = '.popup__form';
@@ -59,13 +59,13 @@ export const popupInputSelector = '.popup__input';
 export const popupImgCaptionSelector = '.popup__image-caption';
 
 //селектор фото popup
-export const popupImgSelector ='.popup__image';
+export const popupImgSelector = '.popup__image';
 
 //селектор фото аватар
-export const profileImgSelector ='.profile__avatar';
+export const profileImgSelector = '.profile__avatar';
 
 //селектор счетчика лайков
-export const likesCountSelector ='.element__likes-count';
+export const likesCountSelector = '.element__likes-count';
 
 //переменная с Id пользователя
 export const userId = {};

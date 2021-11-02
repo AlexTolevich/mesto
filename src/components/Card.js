@@ -9,6 +9,7 @@ import {
 
 export default class Card {
   constructor({data}, handlePreviewImage, handleDeleteElement, handleLikeElement, elementTemplate, userId) {
+    this._data = data;
     this._nameCard = data.name;
     this._linkCard = data.link;
     this._likes = data.likes;
@@ -18,10 +19,9 @@ export default class Card {
     this._handleLikeElement = handleLikeElement;
     this._userId = userId.id;
     this._ownerId = data.owner._id;
-
   };
 
-  //приватный метод загрузки шаблона document
+  //приватный метод загрузки шаблона
   _getTemplate() {
     return document.querySelector(this._elementTemplate).content
       .querySelector('.element')
@@ -54,8 +54,8 @@ export default class Card {
 
   //приватный метод установки слушателей
   _setEventListeners() {
-    this._element.querySelector(btnLikeSelector).addEventListener('click', this._handleLikeElement); //слушатель кнопки element__like
-    this._element.querySelector(btnRemoveCardSelector).addEventListener('click', this._handleDeleteElement); //слушатель кнопки element__remove
+    this._element.querySelector(btnLikeSelector).addEventListener('click', (evt) => this._handleLikeElement(evt, this._data, this)); //слушатель кнопки element__like
+    this._element.querySelector(btnRemoveCardSelector).addEventListener('click', () => this._handleDeleteElement(this._data, this)); //слушатель кнопки element__remove
     this._element.querySelector(photoCardSelector).addEventListener('click', () => this._handlePreviewImage({
       name: this._nameCard,
       link: this._linkCard

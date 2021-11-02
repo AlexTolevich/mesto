@@ -1,5 +1,6 @@
 import {openedPopupSelector, popupCloseBtnSelector} from '../utils/constants.js';
 import {validationConfig}                           from '../utils/constants.js';
+
 export default class Popup {
   constructor(popupSelector) {
     this._popupElement = document.querySelector(popupSelector);
@@ -45,7 +46,11 @@ export default class Popup {
     });
   }
 
-  renderLoading (isLoading) {
+  /**
+   * публичный метод улучшающий UX в части отображения процесса обмена данными с сервером
+   * @param isLoading
+   */
+  renderLoading(isLoading) {
     if (isLoading) {
       this._submitButton.textContent = 'Сохранение...';
     } else {

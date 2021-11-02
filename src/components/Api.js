@@ -4,10 +4,18 @@ export default class Api {
     this._headers = options.headers;
   }
 
+  /**
+   * promiseAll для получения данных пользователя и карточек с сервера
+   * @returns {Promise<any[]>}
+   */
   getAppInfo() {
     return Promise.all([this.getUserInfo(), this.getInitialCards()])
   }
 
+  /**
+   *публичный метод загрузки данных пользователя с сервера
+   * @returns {Promise<any>}
+   */
   getUserInfo() {
     return fetch(`${this._baseUrl}users/me`, {headers: this._headers})
       .then(res => res.ok ? res.json() : Promise.reject(res.status))
@@ -68,5 +76,4 @@ export default class Api {
     })
       .then(res => res.ok ? res.json() : Promise.reject(res.status))
   }
-
 }

@@ -10,6 +10,10 @@ export default class PopupWithConfirmation extends Popup {
     });
   }
 
+  /**
+   * публичный метод сабмита подтверждения действия
+   * @param handleConfirmSubmit
+   */
   submitAction(handleConfirmSubmit) {
     this._handleConfirmSubmit = handleConfirmSubmit;
   }
