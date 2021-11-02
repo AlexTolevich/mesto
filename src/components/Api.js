@@ -13,6 +13,15 @@ export default class Api {
       .then(res => res.ok ? res.json() : Promise.reject(res.status))
   }
 
+  setAvatar(data) {
+    return fetch(`${this._baseUrl}users/me/avatar`, {
+      method: 'PATCH',
+      headers: this._headers,
+      body: JSON.stringify({avatar: data.avatar})
+    })
+      .then(res => res.ok ? res.json() : Promise.reject(res.status))
+  }
+
   setUserInfo(data) {
     return fetch(`${this._baseUrl}users/me`, {
       method: 'PATCH',

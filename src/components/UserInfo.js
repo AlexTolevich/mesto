@@ -18,4 +18,8 @@ export default class UserInfo {
     this._userJob.textContent = data.popup_job;
     this._avatar.src = data.avatar
   }
+
+  setUserAvatar(data) {
+    this._avatar.src = data.avatar
+  }
 }

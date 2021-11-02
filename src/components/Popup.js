@@ -1,9 +1,10 @@
 import {openedPopupSelector, popupCloseBtnSelector} from '../utils/constants.js';
-
+import {validationConfig}                           from '../utils/constants.js';
 export default class Popup {
   constructor(popupSelector) {
     this._popupElement = document.querySelector(popupSelector);
     this._handleEscClose = this._handleEscClose.bind(this); //почитать про потерю контекста еще раз!!!
+    this._submitButton = this._popupElement.querySelector(validationConfig.submitButtonSelector);
   }
 
   /**
@@ -42,5 +43,13 @@ export default class Popup {
         this.close(); //вызываем публичный метод закрытия popup
       }
     });
+  }
+
+  renderLoading (isLoading) {
+    if (isLoading) {
+      this._submitButton.textContent = 'Сохранение...';
+    } else {
+      this._submitButton.textContent = 'Сохранить';
+    }
   }
 }

@@ -1,6 +1,7 @@
 //кнопки
 export const editButton = document.querySelector('.profile__edit-button'); //кнопка вызова popup редактирования профиля
 export const addButton = document.querySelector('.profile__add-button'); //кнопка вызова popup редактирования профиля
+export const avatarEditButton = document.querySelector('.profile__avatar'); //кнопка вызова popup редактирования аватара
 
 //поля popup редактирования профиля
 export const nameInput = document.querySelector('.popup__input_is_name');
@@ -15,6 +16,7 @@ export const formEditAvatar = document.querySelector('.popup__form_type_avatar')
 export const popupImageSelector = '.popup_type_full-screen';
 export const popupAddCardSelector = '.popup_type_add';
 export const popupEditProfileSelector = '.popup_type_edit';
+export const popupEditAvatarSelector = '.popup_type_avatar';
 
 //id template
 export const elementTemplate = '#element-template';
