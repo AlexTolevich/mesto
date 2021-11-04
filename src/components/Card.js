@@ -9,11 +9,11 @@ import {
 
 export default class Card {
   constructor({data}, handlePreviewImage, handleDeleteElement, handleLikeElement, elementTemplate, userId) {
-    this._data = data;
+    this._id = data._id;
     this._nameCard = data.name;
     this._linkCard = data.link;
     this._likes = data.likes;
-    this._elementTemplate = elementTemplate;
+    this._elementTemplate = document.querySelector(elementTemplate);
     this._handlePreviewImage = handlePreviewImage;
     this._handleDeleteElement = handleDeleteElement;
     this._handleLikeElement = handleLikeElement;
@@ -21,58 +21,99 @@ export default class Card {
     this._ownerId = data.owner._id;
   };
 
-  //приватный метод загрузки шаблона
+  /**
+   * приватный метод загрузки шаблона
+   */
   _getTemplate() {
-    return document.querySelector(this._elementTemplate).content
+    return this._elementTemplate.content
       .querySelector('.element')
       .cloneNode(true);
   };
 
+  /**
+   * приватный метод удаления кнопки корзины с карточки созданной другим пользователем
+   * @private
+   */
   _removeDelBtn() {
     if (this._userId !== this._ownerId) {
-      this._element.querySelector('.element__remove').remove();
+      this._removeButton.remove();
     }
-  }
+  };
 
-  counterLikes(likes) {
-    this._element.querySelector(likesCountSelector).textContent = likes.length
-  }
+  /**
+   * публичный метод возвращает булево значение true если в массиве лайков есть лайк текущего пользователя
+   * @returns {boolean}
+   */
+  isLiked() {
+    return Boolean(this._likes.find(user => user._id === this._userId))
+  };
 
-  //публичный метод наполнения карточки контентом
+  /**
+   *публичный метод обновляющий массив лайков при успешном запросе добавления или удаления лайка
+   * @param likes
+   */
+  setLikes(likes) {
+    this._likes = likes;
+    this._handlerLikes();
+  };
+
+  /**
+   * приватный метод обработки данных лайков устанавливает числовое значение лайков и отображает активность лайка текущего пользователя
+   * @private
+   */
+  _handlerLikes() {
+    this._element.querySelector(likesCountSelector).textContent = this._likes.length
+    if (this.isLiked()) {
+      this._likeButton.classList.add(likeActiveSelector)
+    } else {
+      this._likeButton.classList.remove(likeActiveSelector)
+    }
+  };
+
+  /**
+   * публичный метод наполнения карточки контентом
+   * @returns {null|*}
+   */
   createCard() {
     this._element = this._getTemplate();
-    this._setEventListeners();
-    this._removeDelBtn();
-    const photo = this._element.querySelector(photoCardSelector);
-    photo.src = this._linkCard;
-    photo.alt = this._nameCard;
+    this._likeButton = this._element.querySelector(btnLikeSelector);
+    this._removeButton = this._element.querySelector(btnRemoveCardSelector)
+    this._cardImage = this._element.querySelector(photoCardSelector);
+    this._cardImage.src = this._linkCard;
+    this._cardImage.alt = this._nameCard;
     this._element.querySelector(photoTitleSelector).textContent = this._nameCard;
-    this._checkLikeUser()
-    this.counterLikes(this._likes);
+    this._removeDelBtn();
+    this._handlerLikes();
+    this._setEventListeners();
     return this._element;
   };
 
-  //приватный метод установки слушателей
-  _setEventListeners() {
-    this._element.querySelector(btnLikeSelector).addEventListener('click', (evt) => this._handleLikeElement(evt, this._data, this)); //слушатель кнопки element__like
-    this._element.querySelector(btnRemoveCardSelector).addEventListener('click', () => this._handleDeleteElement(this._data, this)); //слушатель кнопки element__remove
-    this._element.querySelector(photoCardSelector).addEventListener('click', () => this._handlePreviewImage({
-      name: this._nameCard,
-      link: this._linkCard
-    }));
-  };
-
-  _checkLikeUser() {
-    this._likes.forEach((item) => {
-      if (this._userId === item._id) {
-        this._element.querySelector(btnLikeSelector).classList.add(likeActiveSelector);
-      }
-    });
-  };
-
-  //публичный метод удаления карточки
+  /**
+   * публичный метод удаления карточки
+   */
   deleteElement() {
     this._element.remove();
     this._element = null;
+  };
+
+  /**
+   * публичный метод получения id карточки
+   * @returns {*}
+   */
+  getId() {
+    return this._id
+  };
+
+  /**
+   * приватный метод установки слушателей
+   * @private
+   */
+  _setEventListeners() {
+    this._likeButton.addEventListener('click', () => this._handleLikeElement(this)); //слушатель кнопки element__like
+    this._removeButton.addEventListener('click', () => this._handleDeleteElement(this)); //слушатель кнопки element__remove
+    this._cardImage.addEventListener('click', () => this._handlePreviewImage({
+      name: this._nameCard,
+      link: this._linkCard
+    }));
   };
 }

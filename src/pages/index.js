@@ -18,7 +18,6 @@ import {
   popupEditProfileSelector,
   profileImgSelector,
   popupEditAvatarSelector,
-  likeActiveSelector,
   userId,
   validationConfig
 }                            from '../utils/constants.js';
@@ -47,11 +46,7 @@ api
   .getAppInfo()
   .then(([userInfoRes, cardListRes]) => {
     userId.id = userInfoRes._id;
-    userInfo.setUserInfo({
-      popup_name: userInfoRes.name,
-      popup_job: userInfoRes.about,
-      avatar: userInfoRes.avatar
-    });
+    userInfo.setUserInfo(userInfoRes);
     cardList.renderItems(cardListRes)
   })
   .catch((err) => {
@@ -80,13 +75,14 @@ const imagePopup = new PopupWithImage(popupImageSelector);
 imagePopup.setEventListeners();
 
 const handlePreviewImage = (item) => {
-  imagePopup.open(item.link, item.name)
+  imagePopup.open(item)
 }
 
-const handleDeleteElement = (item, card) => {
+const handleDeleteElement = (card) => {
   popupConfirmation.open()
+  // popupConfirmation.renderLoading(popupConfirmation,true, 'Да', 'Удаление')
   popupConfirmation.submitAction(() => {
-    api.deleteCard(item)
+    api.deleteCard(card.getId())
       .then(() => {
         card.deleteElement()
         popupConfirmation.close()
@@ -96,24 +92,13 @@ const handleDeleteElement = (item, card) => {
   })
 }
 
-const handleLikeElement = (evt, item, card) => {
-  if (evt.target.classList.contains(likeActiveSelector)) {
-    api.delLike(item)
-      .then((res) => {
-        card.counterLikes(res.likes);
-        evt.target.classList.remove(likeActiveSelector)
-      })
-      .catch((err) =>
-        console.log(`Ошибка удаления лайка: ${err}`));
-  } else {
-    api.setLike(item)
-      .then((res) => {
-        card.counterLikes(res.likes);
-        evt.target.classList.add(likeActiveSelector)
-      })
-      .catch((err) =>
-        console.log(`Ошибка установки лайка: ${err}`));
-  }
+const handleLikeElement = (card) => {
+  api.updateCardLike(card.getId(), !card.isLiked())
+    .then((res) => {
+      card.setLikes(res.likes);
+    })
+    .catch((err) =>
+      console.log(`Ошибка удаления лайка: ${err}`));
 }
 
 /**
@@ -152,11 +137,10 @@ const cardList = new Section({
 const handleUserInfoSubmit = (data) => {
   userInfoPopup.renderLoading(true)
   api.setUserInfo(data)
-    .then(userInfoRes => userInfo.setUserInfo({
-      popup_name: userInfoRes.name,
-      popup_job: userInfoRes.about,
-      avatar: userInfoRes.avatar
-    }))
+    .then((userInfoRes) => {
+      userInfo.setUserInfo(userInfoRes)
+      userInfoPopup.close()
+    })
     .catch((err) => {
       console.log(`Ошибка установки данных пользователя: ${err}`);
     })
@@ -177,9 +161,12 @@ userInfoPopup.setEventListeners();
 const handleAvatarFormSubmit = (data) => {
   editAvatarPopup.renderLoading(true);
   api.setAvatar(data)
-    .then(userInfoRes => userInfo.setUserAvatar({
-      avatar: userInfoRes.avatar
-    }))
+    .then((userInfoRes) => {
+      userInfo.setUserAvatar({
+        avatar: userInfoRes.avatar
+      })
+      editAvatarPopup.close()
+    })
     .catch((err) => {
       console.log(`Ошибка установки аватар: ${err}`);
     })
@@ -198,14 +185,16 @@ editAvatarPopup.setEventListeners();
  * @param data
  */
 const handleCardFormSubmit = (data) => {
-  newCardPopup.renderLoading(true)
+  newCardPopup.renderLoading(true, 'Создать', 'Сохранение...')
   api.postNewCard(data)
-    .then(res => cardList.addItem(createNewCard(res))
-    )
+    .then((res) => {
+      cardList.addItem(createNewCard(res))
+      newCardPopup.close()
+    })
     .catch((err) => {
       console.log(`Ошибка отправки данных карточки: ${err}`);
     })
-    .finally(() => newCardPopup.renderLoading(false));
+    .finally(() => newCardPopup.renderLoading(false, 'Создать', 'Сохранение...'));
 }
 
 /**

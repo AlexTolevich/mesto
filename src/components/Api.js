@@ -4,6 +4,15 @@ export default class Api {
     this._headers = options.headers;
   }
 
+  _checkResponse(res) {
+    if (res.ok) {
+      return res.json()
+    } else {
+      return Promise.reject(res.status)
+    }
+    // return res => res.ok ? res.json() : Promise.reject(res.status);
+  }
+
   /**
    * promiseAll для получения данных пользователя и карточек с сервера
    * @returns {Promise<any[]>}
@@ -18,7 +27,7 @@ export default class Api {
    */
   getUserInfo() {
     return fetch(`${this._baseUrl}users/me`, {headers: this._headers})
-      .then(res => res.ok ? res.json() : Promise.reject(res.status))
+      .then(this._checkResponse);
   }
 
   setAvatar(data) {
@@ -27,7 +36,7 @@ export default class Api {
       headers: this._headers,
       body: JSON.stringify({avatar: data.avatar})
     })
-      .then(res => res.ok ? res.json() : Promise.reject(res.status))
+      .then(this._checkResponse);
   }
 
   setUserInfo(data) {
@@ -36,12 +45,12 @@ export default class Api {
       headers: this._headers,
       body: JSON.stringify({name: data.popup_name, about: data.popup_job})
     })
-      .then(res => res.ok ? res.json() : Promise.reject(res.status))
+      .then(this._checkResponse);
   }
 
   getInitialCards() {
     return fetch(`${this._baseUrl}cards`, {headers: this._headers})
-      .then(res => res.ok ? res.json() : Promise.reject(res.status))
+      .then(this._checkResponse);
   }
 
   postNewCard(data) {
@@ -50,30 +59,23 @@ export default class Api {
       headers: this._headers,
       body: JSON.stringify({name: data.name, link: data.link})
     })
-      .then(res => res.ok ? res.json() : Promise.reject(res.status))
+      .then(this._checkResponse);
   }
 
-  deleteCard(card) {
-    return fetch(`${this._baseUrl}cards/${card._id}`, {
+  deleteCard(id) {
+    return fetch(`${this._baseUrl}cards/${id}`, {
       method: 'DELETE',
       headers: this._headers,
     })
-      .then(res => res.ok ? res.json() : Promise.reject(res.status))
+      .then(this._checkResponse);
   }
 
-  setLike(card) {
-    return fetch(`${this._baseUrl}cards/likes/${card._id}`, {
-      method: 'PUT',
+  updateCardLike(id, liked) {
+    return fetch(`${this._baseUrl}cards/likes/${id}`, {
+      method: liked ? 'PUT' : 'DELETE',
       headers: this._headers,
     })
-      .then(res => res.ok ? res.json() : Promise.reject(res.status))
+      .then(this._checkResponse);
   }
 
-  delLike(card) {
-    return fetch(`${this._baseUrl}cards/likes/${card._id}`, {
-      method: 'DELETE',
-      headers: this._headers,
-    })
-      .then(res => res.ok ? res.json() : Promise.reject(res.status))
-  }
 }
