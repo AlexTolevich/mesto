@@ -50,11 +50,10 @@ export default class PopupWithForm extends Popup {
    * @param isLoading
    */
   renderLoading(isLoading = false, title = 'Сохранить', loadingTitle = 'Сохранение...') {
-    this._button = this._popupFormElement.querySelector(validationConfig.submitButtonSelector)
     if (isLoading) {
-      this._button.textContent = title;
+      this._submitButton.textContent = title;
     } else {
-      this._button.textContent = loadingTitle;
+      this._submitButton.textContent = loadingTitle;
     }
   }
 }

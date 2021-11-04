@@ -80,7 +80,6 @@ const handlePreviewImage = (item) => {
 
 const handleDeleteElement = (card) => {
   popupConfirmation.open()
-  // popupConfirmation.renderLoading(popupConfirmation,true, 'Да', 'Удаление')
   popupConfirmation.submitAction(() => {
     api.deleteCard(card.getId())
       .then(() => {
