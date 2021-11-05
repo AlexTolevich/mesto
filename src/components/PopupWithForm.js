@@ -48,8 +48,8 @@ export default class PopupWithForm extends Popup {
   /**
    * публичный метод улучшающий UX в части отображения процесса обмена данными с сервером
    * @param isLoading логическое значение процесса загрузки
-   * @param title подпись при
-   * @param loadingTitle
+   * @param title подпись до сабмита
+   * @param loadingTitle подпись при загрузке данных
    */
      renderLoading(isLoading = false, title = 'Сохранить', loadingTitle = 'Сохранение...') {
     if (!isLoading) {
