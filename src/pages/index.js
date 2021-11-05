@@ -134,7 +134,7 @@ const cardList = new Section({
  * @param data
  */
 const handleUserInfoSubmit = (data) => {
-  userInfoPopup.renderLoading(true)
+  userInfoPopup.renderLoading(true, 'Сохранить', 'Сохранение...')
   api.setUserInfo(data)
     .then((userInfoRes) => {
       userInfo.setUserInfo(userInfoRes)
@@ -143,7 +143,7 @@ const handleUserInfoSubmit = (data) => {
     .catch((err) => {
       console.log(`Ошибка установки данных пользователя: ${err}`);
     })
-    .finally(() => userInfoPopup.renderLoading(false));
+    .finally(() => userInfoPopup.renderLoading(false, 'Сохранить', 'Сохранение...'));
 }
 
 /**

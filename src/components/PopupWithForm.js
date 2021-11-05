@@ -47,10 +47,12 @@ export default class PopupWithForm extends Popup {
 
   /**
    * публичный метод улучшающий UX в части отображения процесса обмена данными с сервером
-   * @param isLoading
+   * @param isLoading логическое значение процесса загрузки
+   * @param title подпись при
+   * @param loadingTitle
    */
-  renderLoading(isLoading = false, title = 'Сохранить', loadingTitle = 'Сохранение...') {
-    if (isLoading) {
+     renderLoading(isLoading = false, title = 'Сохранить', loadingTitle = 'Сохранение...') {
+    if (!isLoading) {
       this._submitButton.textContent = title;
     } else {
       this._submitButton.textContent = loadingTitle;
